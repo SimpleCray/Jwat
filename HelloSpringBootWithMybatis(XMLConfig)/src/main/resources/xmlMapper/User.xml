@@ -1,0 +1,35 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.jwat.hellospringboot.mapper.UserMapper">
+    <insert id="insertUser" parameterType="User" >
+        INSERT INTO USER (USERNAME, EMAIL, PASSWORD) VALUES (#{username}, #{email}, #{password});
+    </insert>
+ 
+    <update id="updateUser" parameterType="User">
+        UPDATE USER SET USERNAME = #{username}, EMAIL = #{email}, PASSWORD = #{password};
+    </update>
+     
+    <delete id="deleteUserByUsername" parameterType="string">
+        DELETE from USER WHERE USERNAME = #{username};
+    </delete>
+     
+    <select id="selectAllUser" resultMap="result">
+        SELECT * FROM USER;
+    </select>
+     
+    <select id="selectUserByUsername" parameterType="String" resultType="User">
+        SELECT * FROM USER WHERE USERNAME = #{username};
+    </select>
+    
+    <select id="selectUserByEmail" parameterType="String" resultType="User">
+        SELECT * FROM USER WHERE EMAIL = #{email};
+    </select>
+     
+    <!--  property must same with entity -->
+    <resultMap id = "result" type = "User">
+       <result property = "username" column = "USERNAME"/>
+       <result property = "email" column = "EMAIL"/>
+       <result property = "password" column = "PASSWORD"/>
+    </resultMap>
+</mapper>
